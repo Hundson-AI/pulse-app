@@ -5,26 +5,20 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { AppStackParamList } from '@navigator/AppNavigator';
 import AuthTopbar from '../AuthTopbar';
 import { Text } from '@components/Text';
-import EmailSignInForm from '../components/EmailSignInForm';
+import EmailSignUpForm from '../components/EmailSignUpForm';
 import { colors } from '@theme';
 import { spacing } from 'src/theme/spacing';
 import Divider from '@components/Divider';
 
-export const EmailSignInScreen = () => {
+export const FindPasswordScreen = () => {
 	const navigation = useNavigation<NavigationProp<AppStackParamList>>();
 
 	useLayoutEffect(() => {
 		navigation.setOptions({
 			headerShown: true,
-			header: () => <AuthTopbar toHelp toStart />,
+			header: () => <AuthTopbar toHelp toBack />,
 		});
 	}, []);
-
-	const handleToSignUp = () => {
-		navigation.navigate('EmailSignUpScreen');
-	};
-
-	const handleToFindPassword = () => {};
 
 	return (
 		<Screen
@@ -35,7 +29,7 @@ export const EmailSignInScreen = () => {
 			<View style={{ flex: 2 }} />
 			<View style={{ flex: 3, justifyContent: 'center' }}>
 				<Text
-					text='이메일로 로그인'
+					text='이메일로 회원가입'
 					size='xs'
 					weight='bold'
 					style={{
@@ -44,30 +38,7 @@ export const EmailSignInScreen = () => {
 						marginBottom: spacing.sm,
 					}}
 				/>
-				<EmailSignInForm />
-				<View style={[$bottomContainer, { marginTop: spacing.sm }]}>
-					<Text text='비밀번호를 잊어버리셨나요?' size='xs' />
-					<Pressable style={$button} onPress={handleToFindPassword}>
-						<Text
-							text='비밀번호 찾기'
-							size='sm'
-							weight='bold'
-							style={$buttonText}
-						/>
-					</Pressable>
-				</View>
-				<Divider />
-				<View style={$bottomContainer}>
-					<Text text='아직 계정이 없으신가요?' size='xs' />
-					<Pressable style={$button} onPress={handleToSignUp}>
-						<Text
-							text='회원가입'
-							size='sm'
-							weight='bold'
-							style={$buttonText}
-						/>
-					</Pressable>
-				</View>
+				<EmailSignUpForm />
 			</View>
 		</Screen>
 	);

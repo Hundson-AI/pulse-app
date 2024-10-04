@@ -6,13 +6,15 @@ import { Text } from '@components/Text';
 import { AppStackParamList } from '@navigator/AppNavigator';
 import HelpIcon from '@components/svgs/HelpIcon';
 import StartBarIcon from '@components/svgs/StartBarIcon';
+import BackIcon from '@components/svgs/BackIcon';
 
 interface Props {
 	toHelp?: boolean;
 	toStart?: boolean;
+	toBack?: boolean;
 }
 
-const AuthTopbar: FC<Props> = ({ toHelp, toStart }) => {
+const AuthTopbar: FC<Props> = ({ toHelp, toBack, toStart }) => {
 	const navigation = useNavigation<NavigationProp<AppStackParamList>>();
 
 	const handleToHome = () => {
@@ -23,9 +25,24 @@ const AuthTopbar: FC<Props> = ({ toHelp, toStart }) => {
 		console.log('help');
 	};
 
+	const handleToBack = () => {
+		navigation.goBack();
+	};
+
 	return (
 		<View style={$topbar}>
 			<View>
+				{toBack && (
+					<Pressable onPress={handleToBack} style={$button}>
+						<BackIcon fill={colors.gray[200]} />
+						<Text
+							text='이전'
+							style={{ color: colors.gray[200] }}
+							weight='medium'
+							size='xxs'
+						/>
+					</Pressable>
+				)}
 				{toStart && (
 					<Pressable onPress={handleToHome} style={$button}>
 						<StartBarIcon fill={colors.gray[200]} />
