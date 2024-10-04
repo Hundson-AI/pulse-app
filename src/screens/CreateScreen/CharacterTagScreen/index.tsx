@@ -108,7 +108,7 @@ const CharacterTagScreen = () => {
 			contentContainerStyle={[$rootContainer]}
 		>
 			<View style={$contentContainer}>
-				<CreateStepper currentStep={5} />
+				<CreateStepper currentStep={6} />
 				<CreateLabel
 					title={[
 						'캐릭터를 나타내는',

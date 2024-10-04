@@ -8,20 +8,22 @@ import chats from '@modules/chats/chats.slice';
 import chatHistory from '@modules/chat-history/chat-history.slice';
 import chatList from '@modules/chat-list/chat-list.slice';
 import config from '@utils/config';
+import chatInput from '@modules/chat-input/chat-input.slice';
 
 const store = configureStore({
-    reducer: {
-        app,
-        auth,
-        chats,
-        chatList,
-        chatHistory,
-        userCharacters,
-        createCharacter,
-        tempCharacter,
-    },
-    middleware: getDefaultMiddleware => getDefaultMiddleware(),
-    devTools: config.ENV === 'dev',
+	reducer: {
+		app,
+		auth,
+		chats,
+		chatList,
+		chatInput,
+		chatHistory,
+		userCharacters,
+		createCharacter,
+		tempCharacter,
+	},
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+	devTools: config.ENV === 'dev',
 });
 
 export type State = ReturnType<typeof store.getState>;

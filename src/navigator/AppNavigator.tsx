@@ -27,7 +27,7 @@ import CreatingCharacterScreen from 'src/screens/CreateScreen/CreatingCharacterS
 import CharacterSuccessScreen from 'src/screens/CreateScreen/CharacterSuccessScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsAuthenticated, useAuthSlice } from '@modules/auth/auth.slice';
-import { AuthHomeScreen } from 'src/screens/AuthHomeScreen';
+import { AuthHomeScreen } from 'src/screens/AuthScreens/screens/AuthHomeScreen';
 import UserCharactersScreen from 'src/screens/UserCharactersScreen';
 import EditAdvancedSettingsScreen from 'src/screens/EditAdvancedSettingsScreen';
 import { DataPersistKeys, useDataPersist } from '@hooks';
@@ -35,12 +35,20 @@ import UserChatsScreen from 'src/screens/UserChatsScreen';
 import MainTabNavigator from './MainTabNavigator';
 import { UserCharacter } from 'src/services/characters.api';
 import ChatScreen from 'src/screens/ChatScreen';
-import { authenticateWS, registerAuthListeners } from 'src/ws/auth.ws';
+import {
+	authenticateWS,
+	registerAuthListeners,
+	unregisterAuthListeners,
+} from 'src/ws/auth.ws';
 import wsManager from 'src/ws/websocketManager';
 import { registerErrorListener } from 'src/ws/error.ws';
 import CharacterOccupationScreen from 'src/screens/CreateScreen/CharacterOccupationScreen';
+import { EmailSignInScreen } from 'src/screens/AuthScreens/screens/EmailSignInScreen';
 
 export type AppStackParamList = {
+	AuthHomeScreen: undefined;
+	EmailSignInScreen: undefined;
+
 	MainTabNavigator: undefined;
 	UserCharactersScreen: undefined;
 	CreateLobbyScreen: undefined;
@@ -58,7 +66,6 @@ export type AppStackParamList = {
 		currentCharacter: UserCharacter;
 		imageUrl: string;
 	};
-	AuthHomeScreen: undefined;
 	EditAdvancedSettingsScreen: {
 		currentCharacter: UserCharacter;
 	};
@@ -66,6 +73,7 @@ export type AppStackParamList = {
 	ChatScreen: {
 		chatId: string;
 	};
+	SettingsScreen: undefined;
 };
 
 const exitRoutes = Config.exitRoutes;
@@ -93,6 +101,12 @@ const AuthenticatedAppStack = () => {
 	useEffect(() => {
 		initializeWs();
 	}, [token]);
+
+	useEffect(() => {
+		return () => {
+			unregisterAuthListeners();
+		};
+	}, []);
 	return (
 		<>
 			<Stack.Navigator
@@ -181,6 +195,10 @@ const PublicAppStack = () => {
 				<Stack.Screen
 					name='AuthHomeScreen'
 					component={AuthHomeScreen}
+				/>
+				<Stack.Screen
+					name='EmailSignInScreen'
+					component={EmailSignInScreen}
 				/>
 			</Stack.Navigator>
 		</>
