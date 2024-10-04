@@ -51,7 +51,7 @@ const CharacterLanguageScreen = () => {
 			contentContainerStyle={[$rootContainer]}
 		>
 			<View style={$contentContainer}>
-				<CreateStepper currentStep={4} />
+				<CreateStepper currentStep={5} />
 				<CreateLabel
 					title={['캐릭터 기본 언어를', '지정해 주세요']}
 					subtitle='챗봇 대화에서 사용할 기본 언어를 선택해 주세요'
