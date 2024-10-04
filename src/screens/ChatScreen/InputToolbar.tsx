@@ -18,7 +18,6 @@ import { State } from '@modules/store';
 
 const InputToolbar = ({}) => {
 	const currentlyFocusedIdx = useSelector(selectChatInputFocused);
-	console.log('currentlyFocusedIdx', currentlyFocusedIdx);
 	const inputCount = useSelector(selectChatInputCount);
 	const isVisible = currentlyFocusedIdx !== null;
 	const focusedInput = useSelector((state: State) =>

@@ -9,6 +9,7 @@ import chatHistory from '@modules/chat-history/chat-history.slice';
 import chatList from '@modules/chat-list/chat-list.slice';
 import config from '@utils/config';
 import chatInput from '@modules/chat-input/chat-input.slice';
+import chatMode from '@modules/chat-mode/chat-mode.slice';
 
 const store = configureStore({
 	reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
 		chatList,
 		chatInput,
 		chatHistory,
+		chatMode,
 		userCharacters,
 		createCharacter,
 		tempCharacter,

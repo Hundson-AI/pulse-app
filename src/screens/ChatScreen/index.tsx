@@ -1,4 +1,11 @@
-import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, {
+	FC,
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useRef,
+	useState,
+} from 'react';
 import {
 	KeyboardAvoidingView,
 	NativeScrollEvent,
@@ -38,6 +45,9 @@ import { TEMP_USERNAME } from 'src/constants/temp';
 import useAuthorizedListeners from 'src/hooks/useAuthorizedListeners';
 import { markChatAsRead } from '@modules/chats/chats.slice';
 import { ActivityIndicator } from 'react-native-paper';
+import { useChatModeSlice } from '@modules/chat-mode/chat-mode.slice';
+import BottomSheet from '@gorhom/bottom-sheet';
+import ChatModeBottomSheet, { CustomBackdrop } from './ChatModeBottomSheet';
 
 const MESSAGES_PER_FETCH = 10;
 
@@ -50,6 +60,7 @@ const ChatScreen: FC<Props> = ({ route }) => {
 	const [previousContentHeight, setPreviousContentHeight] = useState(0);
 	const [previousScrollOffset, setPreviousScrollOffset] = useState(0);
 	const navigation = useNavigation<NavigationProp<AppStackParamList>>();
+	const { resetChatMode, open, closeChatMode } = useChatModeSlice();
 	const dispatch = useDispatch();
 	const initialized = useSelector(selectChatInitialized);
 	const scrollViewRef = useRef<ScrollView>(null);
@@ -58,14 +69,19 @@ const ChatScreen: FC<Props> = ({ route }) => {
 	const isIos = Platform.OS === 'ios';
 	const lastMessage = useSelector(selectLastChatMessage);
 	const oldestMessage = useSelector(selectOldestChatMessage);
+	const bottomSheetRef = useRef<BottomSheet>(null);
+	const snapPoints = ['40%', '50%'];
+
 	useLayoutEffect(() => {
 		navigation.setOptions({
 			headerShown: true,
-			header: () => <ChatTopbar chatId={chatId} />,
+			header: () => <ChatTopbar />,
 		});
 	}, []);
 
-	useEffect(() => {}, [chatId]);
+	useEffect(() => {
+		dispatch(resetChatMode());
+	}, [chatId]);
 
 	useAuthorizedListeners();
 
@@ -84,6 +100,7 @@ const ChatScreen: FC<Props> = ({ route }) => {
 		initializeChat();
 
 		return () => {
+			dispatch(resetChatMode());
 			dispatch(resetChatHistoryState());
 		};
 	}, []);
@@ -104,6 +121,19 @@ const ChatScreen: FC<Props> = ({ route }) => {
 		setPreviousContentHeight(newContentHeight);
 	};
 
+	useEffect(() => {
+		if (open) {
+			bottomSheetRef.current?.snapToIndex(0);
+		} else {
+			bottomSheetRef.current?.close();
+		}
+	}, [open]);
+
+	const handleSheetChanges = useCallback((index: number) => {
+		if (index === -1) {
+			dispatch(closeChatMode());
+		}
+	}, []);
 	const handleScroll = async (
 		event: NativeSyntheticEvent<NativeScrollEvent>
 	) => {
@@ -194,6 +224,27 @@ const ChatScreen: FC<Props> = ({ route }) => {
 					<ActivityIndicator size='large' color={colors.mint[500]} />
 				</View>
 			)}
+			<BottomSheet
+				ref={bottomSheetRef}
+				index={-1}
+				snapPoints={snapPoints}
+				backdropComponent={CustomBackdrop}
+				onChange={handleSheetChanges}
+				handleStyle={{
+					backgroundColor: colors.mint[500],
+					borderTopLeftRadius: 16,
+					borderTopRightRadius: 16,
+					height: 40,
+					justifyContent: 'flex-end',
+				}}
+				handleIndicatorStyle={{
+					backgroundColor: colors.white,
+					width: 40,
+					height: 5,
+				}}
+			>
+				<ChatModeBottomSheet />
+			</BottomSheet>
 		</Screen>
 	);
 };
