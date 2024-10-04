@@ -5,7 +5,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { AppStackParamList } from '@navigator/AppNavigator';
 import AuthTopbar from '../AuthTopbar';
 import { Text } from '@components/Text';
-import EmailSignUpForm from '../components/EmailSignUpForm';
+import FindPasswordForm from '../components/FindPasswordForm';
 import { colors } from '@theme';
 import { spacing } from 'src/theme/spacing';
 import Divider from '@components/Divider';
@@ -29,7 +29,7 @@ export const FindPasswordScreen = () => {
 			<View style={{ flex: 2 }} />
 			<View style={{ flex: 3, justifyContent: 'center' }}>
 				<Text
-					text='이메일로 회원가입'
+					text='비밀번호 찾기'
 					size='xs'
 					weight='bold'
 					style={{
@@ -38,7 +38,7 @@ export const FindPasswordScreen = () => {
 						marginBottom: spacing.sm,
 					}}
 				/>
-				<EmailSignUpForm />
+				<FindPasswordForm />
 			</View>
 		</Screen>
 	);
@@ -47,17 +47,4 @@ export const FindPasswordScreen = () => {
 const $rootContainer: ViewStyle = {
 	flex: 1,
 	paddingHorizontal: 40,
-};
-
-const $bottomContainer: ViewStyle = {
-	flexDirection: 'row',
-	justifyContent: 'center',
-	alignItems: 'center',
-};
-
-const $button: ViewStyle = {};
-
-const $buttonText: TextStyle = {
-	color: colors.mint[500],
-	padding: spacing.xxs,
 };

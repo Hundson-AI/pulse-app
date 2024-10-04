@@ -9,9 +9,14 @@ import EmailSignInForm from '../components/EmailSignInForm';
 import { colors } from '@theme';
 import { spacing } from 'src/theme/spacing';
 import Divider from '@components/Divider';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-export const EmailSignInScreen = () => {
+interface Props
+	extends NativeStackScreenProps<AppStackParamList, 'EmailSignInScreen'> {}
+
+export const EmailSignInScreen: FC<Props> = ({ route }) => {
 	const navigation = useNavigation<NavigationProp<AppStackParamList>>();
+	const params = route?.params;
 
 	useLayoutEffect(() => {
 		navigation.setOptions({
@@ -24,7 +29,17 @@ export const EmailSignInScreen = () => {
 		navigation.navigate('EmailSignUpScreen');
 	};
 
-	const handleToFindPassword = () => {};
+	const handleToFindPassword = () => {
+		navigation.navigate('FindPasswordScreen');
+	};
+
+	const renderHeaderText = () => {
+		let text = '이메일로 로그인';
+		if (params?.fromResetPassword) {
+			text = '이제 로그인하실 수 있습니다!';
+		}
+		return text;
+	};
 
 	return (
 		<Screen
@@ -35,7 +50,7 @@ export const EmailSignInScreen = () => {
 			<View style={{ flex: 2 }} />
 			<View style={{ flex: 3, justifyContent: 'center' }}>
 				<Text
-					text='이메일로 로그인'
+					text={renderHeaderText()}
 					size='xs'
 					weight='bold'
 					style={{

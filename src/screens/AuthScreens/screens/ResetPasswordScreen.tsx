@@ -1,16 +1,15 @@
 import React, { FC, useLayoutEffect } from 'react';
-import { Pressable, TextStyle, View, ViewStyle } from 'react-native';
+import { View, ViewStyle } from 'react-native';
 import { Screen } from '@components/Screen';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { AppStackParamList } from '@navigator/AppNavigator';
 import AuthTopbar from '../AuthTopbar';
 import { Text } from '@components/Text';
-import EmailSignUpForm from '../components/EmailSignUpForm';
+import ResetPasswordForm from '../components/ResetPasswordForm';
 import { colors } from '@theme';
 import { spacing } from 'src/theme/spacing';
-import Divider from '@components/Divider';
 
-export const EmailSignUpScreen = () => {
+export const ResetPasswordScreen = () => {
 	const navigation = useNavigation<NavigationProp<AppStackParamList>>();
 
 	useLayoutEffect(() => {
@@ -29,7 +28,7 @@ export const EmailSignUpScreen = () => {
 			<View style={{ flex: 2 }} />
 			<View style={{ flex: 3, justifyContent: 'center' }}>
 				<Text
-					text='이메일로 회원가입'
+					text='비밀번호 변경'
 					size='xs'
 					weight='bold'
 					style={{
@@ -38,7 +37,7 @@ export const EmailSignUpScreen = () => {
 						marginBottom: spacing.sm,
 					}}
 				/>
-				<EmailSignUpForm />
+				<ResetPasswordForm />
 			</View>
 		</Screen>
 	);

@@ -5,25 +5,35 @@ import AuthInput from './AuthInput';
 import AuthSubmitButton from './AuthSubmitButton';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { signInSchema, SignInSchema } from '../validation/signin.schema';
+import {
+	ResetPasswordSchema,
+	resetPasswordSchema,
+} from '../validation/signin.schema';
+import { AppStackParamList } from '@navigator/AppNavigator';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
-const EmailSignUpForm = () => {
+const ResetPasswordForm = () => {
 	const [loading, setLoading] = React.useState<boolean>(false);
+	const navigation = useNavigation<NavigationProp<AppStackParamList>>();
 
 	const {
 		control,
 		handleSubmit,
 		formState: { errors, isValid },
-	} = useForm<SignInSchema>({
-		resolver: zodResolver(signInSchema),
+	} = useForm<ResetPasswordSchema>({
+		resolver: zodResolver(resetPasswordSchema),
 		mode: 'onSubmit',
 	});
 
-	const handleSignUp = async (data: SignInSchema) => {
-		const { username, password } = data;
+	const handleResetPassword = async (data: ResetPasswordSchema) => {
 		setLoading(true);
 		try {
 			//TODO: hook up sign up api
+
+			await new Promise((resolve) => setTimeout(resolve, 1000));
+			navigation.navigate('EmailSignInScreen', {
+				fromResetPassword: true,
+			});
 		} catch (error) {
 			console.error(error);
 		} finally {
@@ -36,14 +46,14 @@ const EmailSignUpForm = () => {
 			<View style={$inputContainer}>
 				<Controller
 					control={control}
-					name='username'
+					name='password'
 					render={({ field: { onChange, value } }) => (
 						<AuthInput
 							value={value}
 							onChangeText={onChange}
-							placeholder='이메일'
+							placeholder='비밀번호'
 							keyboardType='email-address'
-							error={errors.username?.message}
+							error={errors.password?.message}
 						/>
 					)}
 				/>
@@ -51,15 +61,15 @@ const EmailSignUpForm = () => {
 			<View style={$inputContainer}>
 				<Controller
 					control={control}
-					name='password'
+					name='confirmPassword'
 					render={({ field: { onChange, value } }) => (
 						<AuthInput
 							value={value}
 							secureTextEntry
 							onChangeText={onChange}
-							placeholder='비밀번호'
+							placeholder='비밀번호 확인'
 							isPassword
-							error={errors.password?.message}
+							error={errors.confirmPassword?.message}
 						/>
 					)}
 				/>
@@ -67,14 +77,14 @@ const EmailSignUpForm = () => {
 			<AuthSubmitButton
 				disabled={loading}
 				loading={loading}
-				onPress={handleSubmit(handleSignUp)}
-				title='가입하기'
+				onPress={handleSubmit(handleResetPassword)}
+				title='변경하기'
 			/>
 		</>
 	);
 };
 
-export default EmailSignUpForm;
+export default ResetPasswordForm;
 
 const $inputContainer: ViewStyle = {
 	marginBottom: spacing.xs,

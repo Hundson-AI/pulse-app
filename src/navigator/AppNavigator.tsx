@@ -40,12 +40,16 @@ import CharacterOccupationScreen from 'src/screens/CreateScreen/CharacterOccupat
 import { EmailSignInScreen } from 'src/screens/AuthScreens/screens/EmailSignInScreen';
 import { EmailSignUpScreen } from 'src/screens/AuthScreens/screens/EmailSignUpScreen';
 import { FindPasswordScreen } from 'src/screens/AuthScreens/screens/FindPasswordScreen';
+import { ResetPasswordScreen } from 'src/screens/AuthScreens/screens/ResetPasswordScreen';
 
 export type AppStackParamList = {
 	AuthHomeScreen: undefined;
-	EmailSignInScreen: undefined;
+	EmailSignInScreen: {
+		fromResetPassword?: boolean;
+	};
 	EmailSignUpScreen: undefined;
 	FindPasswordScreen: undefined;
+	ResetPasswordScreen: undefined;
 
 	MainTabNavigator: undefined;
 	UserCharactersScreen: undefined;
@@ -205,6 +209,10 @@ const PublicAppStack = () => {
 				<Stack.Screen
 					name='FindPasswordScreen'
 					component={FindPasswordScreen}
+				/>
+				<Stack.Screen
+					name='ResetPasswordScreen'
+					component={ResetPasswordScreen}
 				/>
 			</Stack.Navigator>
 		</>
