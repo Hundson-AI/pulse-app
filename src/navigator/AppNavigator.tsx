@@ -41,6 +41,7 @@ import { EmailSignInScreen } from 'src/screens/AuthScreens/screens/EmailSignInSc
 import { EmailSignUpScreen } from 'src/screens/AuthScreens/screens/EmailSignUpScreen';
 import { FindPasswordScreen } from 'src/screens/AuthScreens/screens/FindPasswordScreen';
 import { ResetPasswordScreen } from 'src/screens/AuthScreens/screens/ResetPasswordScreen';
+import CharacterProfileScreen from 'src/screens/CharacterProfileScreen';
 
 export type AppStackParamList = {
 	AuthHomeScreen: undefined;
@@ -76,6 +77,9 @@ export type AppStackParamList = {
 		chatId: string;
 	};
 	SettingsScreen: undefined;
+	CharacterProfileScreen: {
+		character: UserCharacter;
+	};
 };
 
 const exitRoutes = Config.exitRoutes;
@@ -179,6 +183,10 @@ const AuthenticatedAppStack = () => {
 					component={UserChatsScreen}
 				/>
 				<Stack.Screen name='ChatScreen' component={ChatScreen} />
+				<Stack.Screen
+					name='CharacterProfileScreen'
+					component={CharacterProfileScreen}
+				/>
 			</Stack.Navigator>
 		</>
 	);
