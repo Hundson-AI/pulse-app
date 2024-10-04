@@ -56,7 +56,7 @@ const $dividerContainer: ViewStyle = {
 };
 
 const $divider: ViewStyle = {
-	marginVertical: spacing.xl,
+	marginVertical: spacing.lg,
 	backgroundColor: colors.gray[200],
 	height: 1,
 };
