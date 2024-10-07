@@ -1,74 +1,74 @@
 {
-    "build": {
-        "base": {
-            "node": "20.9.0",
-            "env": {
-                "APP_ENV": "production",
-                "EXPO_PUBLIC_ENV": "production",
-                "EXPO_PUBLIC_API_URL": "https://pulsevoice.hudson-ai.com/pulse/api/v1",
-                "EXPO_PUBLIC_SLUG": "pulse",
-                "EXPO_PUBLIC_NAME": "Pulse",
-                "EXPO_PUBLIC_PROJECT_ID": "a01fcbca-3bf9-438e-8b4e-f3470ca1f477",
-                "EXPO_PUBLIC_IOS_BUNDLE_IDENTIFIER": "com.hudsonai.pulse",
-                "EXPO_PUBLIC_IOS_ANDROID_PACKAGE": "com.hudsonai.pulse"
-            },
-            "ios": {
-                "image": "latest",
-                "resourceClass": "m1-medium",
-                "env": {
-                    "PLATFORM": "ios"
-                }
-            },
-            "android": {
-                "image": "default",
-                "env": {
-                    "PLATFORM": "android"
-                }
-            },
-            "channel": "base"
-        },
-        "develpment": {
-            "extends": "base",
-            "channel": "development",
-            "distribution": "internal",
-            "env": {
-                "APP_ENV": "dev",
-                "EXPO_PUBLIC_ENV": "development",
-                "EXPO_PUBLIC_API_URL": "https://pulsevoice.hudson-ai.com/pulse/api/v1",
-                "EXPO_PUBLIC_SLUG": "pulse-development",
-                "EXPO_PUBLIC_NAME": "Pulse",
-                "EXPO_PUBLIC_PROJECT_ID": "232c134e-4e7d-40de-bdca-71b8380c447c",
-                "EXPO_PUBLIC_IOS_BUNDLE_IDENTIFIER": "com.hudsonai.pulse.dev",
-                "EXPO_PUBLIC_IOS_ANDROID_PACKAGE": "com.hudsonai.pulse.dev"
-            },
-            "android": {
-                "gradleCommand": ":app:assembleDebug"
-            },
-            "ios": {
-                "simulator": true,
-                "buildConfiguration": "Debug"
-            }
-        },
-        "staging": {
-            "extends": "base",
-            "channel": "staging",
-            "distribution": "internal",
-            "env": {
-                "APP_ENV": "stg"
-            },
-            "ios": {
-                "enterpriseProvisioning": "universal"
-            }
-        },
-        "production": {
-            "extends": "base",
-            "channel": "production",
-            "env": {
-                "APP_ENV": "prod"
-            }
-        }
-    },
-    "submit": {
-        "production": {}
-    }
+	"build": {
+		"base": {
+			"node": "20.9.0",
+			"env": {
+				"APP_ENV": "production",
+				"EXPO_PUBLIC_ENV": "production",
+				"EXPO_PUBLIC_API_URL": "https://pulsevoice.hudson-ai.com/pulse/api/v1",
+				"EXPO_PUBLIC_SLUG": "pulse",
+				"EXPO_PUBLIC_NAME": "Pulse",
+				"EXPO_PUBLIC_PROJECT_ID": "a01fcbca-3bf9-438e-8b4e-f3470ca1f477",
+				"EXPO_PUBLIC_IOS_BUNDLE_IDENTIFIER": "com.hudsonai.pulse",
+				"EXPO_PUBLIC_IOS_ANDROID_PACKAGE": "com.hudsonai.pulse"
+			},
+			"ios": {
+				"image": "latest",
+				"resourceClass": "m1-medium",
+				"env": {
+					"PLATFORM": "ios"
+				}
+			},
+			"android": {
+				"image": "latest",
+				"env": {
+					"PLATFORM": "android"
+				}
+			},
+			"channel": "base"
+		},
+		"develpment": {
+			"extends": "base",
+			"channel": "development",
+			"distribution": "internal",
+			"env": {
+				"APP_ENV": "dev",
+				"EXPO_PUBLIC_ENV": "development",
+				"EXPO_PUBLIC_API_URL": "https://pulsevoice.hudson-ai.com/pulse/api/v1",
+				"EXPO_PUBLIC_SLUG": "pulse-development",
+				"EXPO_PUBLIC_NAME": "Pulse",
+				"EXPO_PUBLIC_PROJECT_ID": "232c134e-4e7d-40de-bdca-71b8380c447c",
+				"EXPO_PUBLIC_IOS_BUNDLE_IDENTIFIER": "com.hudsonai.pulse.dev",
+				"EXPO_PUBLIC_IOS_ANDROID_PACKAGE": "com.hudsonai.pulse.dev"
+			},
+			"android": {
+				"gradleCommand": ":app:assembleDebug"
+			},
+			"ios": {
+				"simulator": true,
+				"buildConfiguration": "Debug"
+			}
+		},
+		"staging": {
+			"extends": "base",
+			"channel": "staging",
+			"distribution": "internal",
+			"env": {
+				"APP_ENV": "stg"
+			},
+			"ios": {
+				"enterpriseProvisioning": "universal"
+			}
+		},
+		"production": {
+			"extends": "base",
+			"channel": "production",
+			"env": {
+				"APP_ENV": "prod"
+			}
+		}
+	},
+	"submit": {
+		"production": {}
+	}
 }
